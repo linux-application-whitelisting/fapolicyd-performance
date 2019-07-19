@@ -55,7 +55,7 @@ In this case we are trying to measure how much time "execve" takes.
 
 #### Results
 
-* Without fapolicyd disabled
+* With fapolicyd disabled
   * 0.0000735291 sec
   * 0.0000699629 sec
   * 0.0000708038 sec
@@ -84,7 +84,7 @@ In this case we are trying to measure how much time "execve" takes.
 
 #### Results
 
-* Without fapolicyd disabled
+* With fapolicyd disabled
   * 0.0000903935 sec
   * 0.0000889333 sec
   * 0.0000870839 sec
@@ -110,7 +110,7 @@ It runs open_test binary which is trying to open as much files as possible. File
 
 #### Results
 
-* Without fapolicyd disabled
+* With fapolicyd disabled
   * 30346965 open/min
   * 29787021 open/min
   * 29787021 open/min
