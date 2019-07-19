@@ -49,7 +49,7 @@ $ sudo ./benchmark-single-exec.sh one-binary 10000
 
 #### Description
 
-It runs one-binary binary with "strace -T" and it filters out everything but "execve". "one-binary" is runner which is forking itself for x times and executng "/bin/true". This scenario is supposed to be comparing runs with and without fapolicyd. That should be theoretically the best optimized usecase in favor of fapolicyd. It is so because fapolicyd has "/bin/true" in cache.
+It runs one-binary binary with "strace -T" and it filters out everything but "execve". "one-binary" is runner which is forking itself for x times and executng "/bin/true". This scenario is supposed to be comparing runs with and without fapolicyd. This approach should theoretically be the best optimized usecase in favor of fapolicyd. It is so because fapolicyd has "/bin/true" in cache.
 
 In this case we are trying to measure how much time "execve" takes.
 
@@ -68,5 +68,35 @@ In this case we are trying to measure how much time "execve" takes.
   * avg -> 0.000119980 sec
 
 * Ratio -> 0.000119980 / 0.0000714319 = 1.6796417286954428
-  * ~67% performance hit
+  * ~67% performance hit onn single "execve"
+  
+
+### Multi "exec()" Scenario
+```
+$ sudo ./benchmark-multiple-exec.sh multiple-binary 10000
+```
+
+#### Description
+
+It runs multiple-binary binary with "strace -T" and it filters out everything but "execve". "multiple-binary" is runner which is forking itself for x times and executng each time different binary. That is guaranteed by worker script which copies and renames "/bin/true" therefore there are so many different binaries prepared in "/tmp" for this scenario. This scenario is supposed to be comparing runs with and without fapolicyd. This approach should theoretically be the worst optimized usecase. It causes many cache misses
+
+In this case we are trying to measure how much time "execve" takes.
+
+#### Results
+
+* Without fapolicyd disabled
+  * 0.0000903935 sec
+  * 0.0000889333 sec
+  * 0.0000870839 sec
+  * avg ->  sec
+  
+* With fapolicyd enabled
+  * 0.000158834 sec
+  * 0.000151543 sec
+  * 0.000148677 sec
+  * avg ->  sec
+
+* Ratio -> 
+  *
+  
 
