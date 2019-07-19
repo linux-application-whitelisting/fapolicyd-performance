@@ -59,9 +59,14 @@ In this case we are trying to measure how much time "execve" takes.
   * 0.0000735291 sec
   * 0.0000699629 sec
   * 0.0000708038 sec
-  * avg -> 
+  * avg -> 0.0000714319 sec
   
 * With fapolicyd enabled
   * 0.000119749 sec
   * 0.000122209 sec
   * 0.000117983 sec
+  * avg -> 0.000119980 sec
+
+* Ratio -> 0.000119980 / 0.0000714319 = 1.6796417286954428
+  * ~67% performance hit
+
