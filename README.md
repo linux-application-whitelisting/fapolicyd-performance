@@ -111,16 +111,16 @@ It runs open_test binary which is trying to open as much files as possible. File
 #### Results
 
 * Without fapolicyd disabled
-  * 30346965 open/sec
-  * 29787021 open/sec
-  * 29787021 open/sec
-  * avg -> 29973669 open/sec
+  * 30346965 open/min
+  * 29787021 open/min
+  * 29787021 open/min
+  * avg -> 29973669 open/min
   
 * With fapolicyd enabled
-  * 4249575 open/sec
-  * 4249575 open/sec
-  * 4249575 open/sec
-  * avg -> 4249575 open/sec
+  * 4249575 open/min
+  * 4249575 open/min
+  * 4249575 open/min
+  * avg -> 4249575 open/min
 
 * Ratio -> 29973669 / 4249575 = 7.086682427107959
   * system with fapolicyd is 7x slower
