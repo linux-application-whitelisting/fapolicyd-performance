@@ -1,6 +1,7 @@
 
 add_executable (one-binary one-binary.cpp)
 add_executable (multiple-binary multiple-binary.cpp)
+add_executable (open_test open_test.cpp)
 
 install (
   PROGRAMS

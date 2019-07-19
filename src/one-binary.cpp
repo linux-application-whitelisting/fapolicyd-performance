@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
   cout << "Binary: " << bin << endl;
 
 
-  for (long i = 0 ; i < xtimes ; i++) {
+  for (long i = 1 ; i <= xtimes ; i++) {
     int pid, status;
 
     if (pid = fork()) {

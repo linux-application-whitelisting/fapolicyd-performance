@@ -20,11 +20,12 @@ rm -rf /var/run/fapolicyd/*
 
 strace -e execve -T -f ./$BINARY $ITERATIONS /bin/true 2>$TMPFILE 1>/dev/null
 #cat $TMPFILE
-RESULTS=`grep execve $TMPFILE | tail -n $ITERATIONS | cut -d' ' -f8 | cut -d'<' -f2 | cut -d'>' -f1`
+RESULTS=`grep execve $TMPFILE | tail -n $ITERATIONS | sed -E 's/\[.*\] //g' | cut -d' ' -f6 | cut -d'<' -f2 | cut -d'>' -f1`
 echo $RESULTS > $TMPFILE
-AVG=`awk '{ total += $2; count++ } END { print total/count }' $TMPFILE`
+AVG=` awk '{sum = 0; for (i = 1; i <= NF; i++) sum += $i; sum /= NF; print sum}' $TMPFILE`
 
 cat $TMPFILE
+echo > $TMPFILE
 echo "Running same binary for $ITERATIONS iterations without fapolicyd $FAPOLICYD."
 echo "Result: $AVG"
 
@@ -41,13 +42,15 @@ echo "Waiting for daemon to start"
 sleep 10
 systemctl status fapolicyd --no-pager
 
-strace -e execve -T -f $BINARY $ITERATIONS /bin/true 2>$TMPFILE 1>/dev/null
+true
+strace -e execve -T -f ./$BINARY $ITERATIONS /bin/true 2>$TMPFILE 1>/dev/null
 #cat $TMPFILE
-RESULTS=`grep execve $TMPFILE | tail -n $ITERATIONS | cut -d' ' -f8 | cut -d'<' -f2 | cut -d'>' -f1`
+RESULTS=`grep execve $TMPFILE | tail -n $ITERATIONS | sed -E 's/\[.*\] //g' | cut -d' ' -f6 | cut -d'<' -f2 | cut -d'>' -f1`
 echo $RESULTS > $TMPFILE
-AVG=`awk '{ total += $2; count++ } END { print total/count }' $TMPFILE`
+AVG=` awk '{sum = 0; for (i = 1; i <= NF; i++) sum += $i; sum /= NF; print sum}' $TMPFILE`
 
 cat $TMPFILE
+echo > $TMPFILE
 echo "Running same binary for $ITERATIONS iterations with fapolicyd $FAPOLICYD."
 echo "Result: $AVG"
 
