@@ -2,6 +2,9 @@
 add_executable (one-binary one-binary.cpp)
 add_executable (multiple-binary multiple-binary.cpp)
 add_executable (open_test open_test.cpp)
+add_executable (read-database read-database.cpp)
+target_link_libraries (read-database -llmdb)
+
 
 install (
   PROGRAMS
